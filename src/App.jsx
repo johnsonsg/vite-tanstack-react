@@ -1,31 +1,35 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 
 const POSTS = [
   { id: 1, title: 'Post 1' },
   { id: 2, title: 'Post 2' }
 ]
 
+// Examples of what we would query:
+
+// Get url: /posts -> ['posts']
+// Get Individual post: /posts/1 -> ['posts', post.id]
+// Filter post by: posts?authorId=1 -> ['posts', { authorId: 1}]
+// Get all comments for specific post: /posts/1/comments -> ['posts', post.id, 'comments']
+
 function App() {
   console.log(POSTS)
-
-  const queryClient = useQueryClient()
-
   const postsQuery = useQuery({
+    /**
+     * Note:
+     * How does queryKey work: This is important
+     * It must be uniqued about the actual query you are making.
+     * So, We are querying all the Posts [...POSTS], which is why we called it 'posts'
+     */
     queryKey: ['posts'], // Query Key: unique identifier for my query
-    // queryFn: This is what is going to run and query the data.
-    // This takes a Promise
-    queryFn: () => wait(1000).then(() => [...POSTS])
-  })
 
-  const newPostMutation = useMutation({
-    mutationFn: title => {
-      return wait(1000).then(() =>
-        POSTS.push({ id: crypto.randomUUID(), title })
-      )
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(['posts'])
-    }
+    // queryFn: This is what is going to run and query the data.
+    // Must take in a Promise
+    queryFn: obj =>
+      wait(1000).then(() => {
+        console.log(obj)
+        return [...POSTS]
+      })
   })
 
   if (postsQuery.isLoading) return <strong>Loading...</strong>
@@ -38,12 +42,6 @@ function App() {
       {postsQuery.data.map(post => (
         <div key={post.id}>{post.title}</div>
       ))}
-      <button
-        disabled={newPostMutation.isLoading}
-        onClick={() => newPostMutation.mutate('New Post')}
-      >
-        Add New
-      </button>
     </div>
   )
 }
