@@ -30,7 +30,7 @@ yarn create vite my-vue-app --template vue
 pnpm create vite my-vue-app --template vue
 ```
 
-## Next
+## ...next
 
 ```
 - Project name: 'some-name'
