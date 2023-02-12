@@ -40,4 +40,4 @@ export default App
 // Mutation is changing some type of data. ex.) creating a brand new post
 // These are really the only two things you can do with react-query.
 
-// useQuery takes in an Object
+// useQuery takes in an Object.
