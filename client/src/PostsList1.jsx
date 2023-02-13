@@ -4,9 +4,9 @@ import { getPosts } from './api/posts'
 export default function PostsList1() {
   const postsQuery = useQuery({
     queryKey: ['posts'],
-    queryFn: getPosts
+    queryFn: getPosts,
     // Interval: Refetch data after so long
-    // refetchInterval: 1000
+    refetchInterval: 1000
   })
 
   if (postsQuery.status === 'loading') return <strong>Loading...</strong>
