@@ -1,11 +1,13 @@
 import axios from 'axios'
 
+// Fetch Posts
 export function getPosts() {
   return axios
     .get('http://localhost:3000/posts', { params: { _sort: 'title' } })
     .then(res => res.data)
 }
 
+// Paginate Posts
 export function getPostsPaginated(page) {
   return axios
     .get('http://localhost:3000/posts', {
@@ -25,6 +27,7 @@ export function getPost(id) {
   return axios.get(`http://localhost:3000/posts/${id}`).then(res => res.data)
 }
 
+// Create Posts
 export function createPost({ title, body }) {
   return axios
     .post('http://localhost:3000/posts', {
