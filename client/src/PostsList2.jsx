@@ -7,14 +7,14 @@ export default function PostsList2() {
     queryFn: getPosts
   })
 
-  if (postsQuery.status === 'loading') return <strong>Loading...</strong>
+  if (postsQuery.status === 'loading') return <h1>Loading...</h1>
   if (postsQuery.status === 'error') {
-    return <pre>{JSON.stringify(postsQuery.error)}</pre>
+    return <h1>{JSON.stringify(postsQuery.error)}</h1>
   }
 
   return (
     <div>
-      <h1>Posts List 2</h1>
+      <h1>Post List 2</h1>
       <ol>
         {postsQuery.data.map(post => (
           <li key={post.id}>{post.title}</li>
