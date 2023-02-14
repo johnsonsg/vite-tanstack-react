@@ -21,9 +21,11 @@ export function PostListPaginated() {
         <br />
         <small>{isPreviousData && 'Previous Data'}</small>
       </h1>
-      {data.posts.map(post => (
-        <div key={post.id}>{post.title}</div>
-      ))}
+      <ul>
+        {data.posts.map(post => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
       {data.previousPage && (
         <button onClick={() => setPage(data.previousPage)}>Previous</button>
       )}{' '}
